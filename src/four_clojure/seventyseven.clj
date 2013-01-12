@@ -23,10 +23,45 @@
 
 (map #(set %) (vals (group-by #(sort %) data)))
 
-(filter #(> (count %) 1)  
-		(map 	#(set %) (
-				vals (group-by #(sort %) data))))
+(filter #(> (count %) 1)  (map #(set %) (vals (group-by #(sort %) data))))
+
+(set  (filter #(> (count %) 1)  (map #(set %) (vals (group-by #(sort %) data)))))
+
+
+(doc for)
+
+(for [v (vals (group-by #(sort %) data)) :while (> (count v) 1)] (set v))
+
+
+(set (for [v (vals (group-by #(sort %) data)) :while (> (count v) 1)] (set v)))
+
+( ( fn [s] (set (for [v (vals (group-by #(sort %) s)) :while (> (count v) 1)] (set v)))) data)
 
 
 
-(doc into)
+
+;; darren's solution:
+(fn [s] (set (keep #(if (next %) (set %)) (vals (group-by sort s)))))
+
+;; amalloy's solution
+
+#(set
+  (map (comp set val)
+       (remove (comp #{1} count val)
+               (group-by frequencies %))))
+
+
+;; chouser's solution:
+#(set (for [[_ g] (group-by frequencies %)
+            :when (next g)]
+        (set g)))
+
+
+;; cgrand's solution:
+#(->> % (group-by sort) vals (filter next) (map set) set)
+
+
+(doc frequencies)
+
+(group-by frequencies data)
+

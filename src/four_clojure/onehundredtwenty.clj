@@ -26,3 +26,10 @@ Write a function which takes a collection of integers as an argument. Return the
 
 (map (fn [n] (if ) (let [v (Integer/parseInt (str n))] (* v v))) (str  8) )
 
+(reduce #(+ % (* %2 %2)) 0 [1 0])
+
+(map ( fn [c] (Integer/parseInt (str c))) "15")
+
+()
+
+(doc reduce)

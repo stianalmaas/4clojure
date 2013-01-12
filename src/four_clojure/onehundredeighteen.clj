@@ -48,3 +48,8 @@ tormaroe's solution:
                     (map2 f (rest s))))))
 
 
+amcnamara's solution:
+(fn b [f [x & y]]
+  (if x
+    (cons (f x) (lazy-seq (b f y)))))
+
